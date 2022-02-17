@@ -54,20 +54,42 @@ namespace generateur_phrases_aleatoires // Note: actual namespace depends on the
                 "un crapaud"
             };
 
-            const int NB_PHRASE = 10;
+            const int NB_PHRASE = 150;
+            var phrasesUniques = new List<string>();
+            int doublonsEvites = 0;
 
-            for (int i = 0; i < NB_PHRASE; i++)
+            while (phrasesUniques.Count < NB_PHRASE)
             {
                 var sujet = ObtenirElementAleatoire(sujets);
                 var verbe = ObtenirElementAleatoire(verbes);
                 var complement = ObtenirElementAleatoire(complements);
-                var phrase = $"{sujet} {verbe} {complement}";
-                phrase = phrase.Replace("à la", "au");
+                var phrase = sujet + " " + verbe + " " + complement;
+                phrase = phrase.Replace("à le", "au");
+
+                if (!phrasesUniques.Contains(phrase))
+                {
+                    phrasesUniques.Add(phrase);
+                }
+                else
+                {
+                    doublonsEvites++;
+                }
+                
                 //sujet + verbe + complement  
-                Console.WriteLine(phrase);
             }
 
-            
+           
+            foreach(var phrase in phrasesUniques)
+            {
+                Console.WriteLine(phrase);
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Nombre de phrases uniques : {phrasesUniques.Count}");
+            Console.WriteLine($"Nombres de doublons évités : {doublonsEvites}");
+
+
+
+
         }
     }
 }
